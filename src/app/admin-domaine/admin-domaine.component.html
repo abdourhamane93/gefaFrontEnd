@@ -11,6 +11,7 @@
          </h2>
         </div>
         <button class="btn btn-success btn-sm text-white" data-toggle="modal" data-target="#forModal"><i class="fa fa-plus"></i>Ajouter Activité</button>
+        <div class="alert alert-danger" role="alert" *ngIf="campVide">Aucune campagne disponible</div>
         <div class="row">
            <div class="col col-md-4" *ngIf="activites">
               <div class="ul list-group" *ngFor="let a of activites">
@@ -193,5 +194,5 @@
             </tbody>
         </table>
       </div>
-
+   
 

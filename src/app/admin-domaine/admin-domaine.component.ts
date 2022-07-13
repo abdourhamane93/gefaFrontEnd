@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, SystemJsNgModuleLoader } from '@angular/core';
 import { DomaineService } from '../services/domaine.service';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { ActiviteService } from '../services/activite.service';
@@ -12,7 +12,7 @@ import { VentesService } from '../services/ventes.service';
   styleUrls: ['./admin-domaine.component.css']
 })
 export class AdminDomaineComponent implements OnInit {
- fournisseurs; domaine;activites;choix;campagnes;afficher=false;depenses;ventes;
+ fournisseurs; domaine;activites;choix;campagnes;afficher;depenses;ventes;campVide=false;
   constructor(private domaineService: DomaineService,
     private activiteService: ActiviteService,
     private campagneService: CampagneService,
@@ -65,7 +65,12 @@ export class AdminDomaineComponent implements OnInit {
     this.campagneService.getCampagnes(id).subscribe(
       response =>{
         this.campagnes = response;
-        this.afficher = true;
+        if(this.campagnes.length == 0){
+          console.log('vide')
+          this.campVide = !this.campVide;
+        }
+        else{
+        this.afficher = true;}
       }
     );
   }
