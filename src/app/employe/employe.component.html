@@ -1,0 +1,65 @@
+
+<div class="container-fluid d-table">
+    <div class="row d-table-row">
+        <div class="col-sm-2 d-table-cell" id="side-menu">
+            <app-sidebar></app-sidebar>
+        </div>
+        <div class="col-sm-10 d-table-cell">
+            <app-header></app-header>
+            <div class="container">
+                    <table class="table col-sm-6 col-md-12" *ngIf="employes">
+                        <thead class="bg-dark text-white">
+                            <tr>
+                             <th>Nom</th><th>Prenom</th>
+                             <th>Date Naissance</th>
+                             <th>Date Embauche</th>
+                             <th>Qualification</th>
+                             <th>Contact <a class="btn btn-primary text-white ajout" data-toggle="modal" data-target="#forEmpl">Nouveau</a></th>
+                            </tr>
+                        </thead>
+                        <tbody *ngFor="let d of employes">
+                            <tr>
+                             <td>{{d.nom}}</td><td>{{d.prenom}}</td><td>{{d.dateNaissance|date}}</td><td>{{d.dateEmbauche|date}}</td><td>{{d.qualification}}</td><td>{{d.contact}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    </div>
+                    <div class="row">
+                        <div id="footer" class="clearfix">
+                                <app-footer></app-footer>
+                        </div> 
+                    </div> 
+        </div>
+    </div>
+</div>
+<div class="modal" tabindex="-1" role="dialog" id="forEmpl">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header bg-dark text-white">
+              <h3 class="modal-title">Nouvel Employé</h3>
+            </div>
+            <div class="modal-body">
+                    <form #employe="ngForm" class="form">
+                            <label for="nom">Nom</label>
+                            <input type="text" name="nom" class="form-control" ngModel>
+                            <label for="prenom">Prenom</label>
+                            <input type="text" name="prenom" class="form-control" ngModel>
+                            <label for="dateNaissance">Date Naissance</label>
+                            <input type="date" name="dateNaissance" class="form-control" ngModel>
+                            <label for="dateEmbauche">Date d'embauche</label>
+                            <input type="date" name="dateEmbauche" class="form-control" ngModel>
+                            <label for="qualification">Qualification</label>
+                            <input type="text" name="qualification" class="form-control" ngModel>
+                            <label for="contact">Contact</label>
+                            <input type="number" name="contact" class="form-control" ngModel>
+                            <label for="numCni">CNI</label>
+                            <input type="text" name="numCni" class="form-control" ngModel>
+                        </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+              <button type="button" class="btn btn-primary" (click)="ajouter(employe.value)" data-dismiss="modal">Enregistrer</button>
+            </div>
+          </div>
+        </div>
+      </div>

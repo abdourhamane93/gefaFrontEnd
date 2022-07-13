@@ -1,0 +1,87 @@
+
+<div class="container-fluid d-table">
+    <div class="row d-table-row">
+        <div class="col-sm-2 d-table-cell" id="side-menu">
+            <app-sidebar></app-sidebar>
+        </div>
+        <div class="col-sm-10 d-table-cell">
+                <app-header></app-header>
+                <div class="col-md-12">
+                  <div class="bg-secondary text-white text-center w-100 h-100 dBrand">
+                    <h2 class="text-center">Dépenses</h2>
+                  </div>
+                  <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#forDep">
+                    <i class="fa fa-plus"></i>
+                    Nouvelle Depense
+                  </button>
+                </div>
+                <div class="col-md-12">
+                        <table class="table table-hover col-md-12"  *ngIf="depenses">
+                            <thead class="bg-dark text-white">
+                                <tr>
+                                <th scope="col">Campagne</th>
+                                 <th scope="col">Designation</th>
+                                 <th scope="col">date</th>
+                                 <th scope="col">Produit</th>
+                                 <th scope="col">Montant</th>
+                                 <th scope="col"></th>
+                                </tr>
+                            </thead>
+                            <tbody *ngFor="let d of depenses">
+                                <tr>
+                                 <td>{{d.campagne.nomCampagne}}</td> 
+                                 <td>{{d.designation}}</td>
+                                 <td>{{d.dateDepense|date}}</td>
+                                 <td>  {{d.produit.produit}}</td>
+                                 <td>{{d.montantDepense|number}}Fcfa</td>
+                                 <td><a (click)="supprimer(d.numDepense)" class="btn btn-danger text-white"><i class="fa fa-trash"></i></a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        </div>
+                        <div class="row">
+                            <div id="footer" class="clearfix">
+                                    <app-footer></app-footer>
+                            </div> 
+                        </div> 
+        </div>
+    </div>
+</div>
+<div class="modal" tabindex="-1" role="dialog" id="forDep">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header bg-dark text-white">
+              <h3 class="modal-title">Nouvelle Depense</h3>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                    <form #depense="ngForm" class="form">
+                            <label for="designation">Designation</label>
+                            <input type="text" name="designation" class="form-control" ngModel>
+                            <label for="dateDepense">Date</label>
+                            <input type="date" name="dateDepense" class="form-control" ngModel>
+                            <label for="campagne">Campagne</label>
+                            <select name="idCampagne" class="form-control" *ngIf="campagnes" ngModel>
+                              <option *ngFor="let c of campagnes" [value]="c.numCampagne">
+                                {{c.nomCampagne}}
+                              </option>
+                            </select>
+                            <label for="produit">Produit</label>
+                            <select name="idProduit" class="form-control" ngModel>
+                                <option *ngFor="let p of produits" [value]="p.numProduit">
+                                    {{p.produit}}
+                                </option>
+                            </select>
+                            <label for="montantDepense">Montant</label>
+                            <input type="number" name="montantDepense" class="form-control" ngModel>
+                        </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+              <button type="button" class="btn btn-primary" (click)="ajouter(depense.value)">Enregistrer</button>
+            </div>
+          </div>
+        </div>
+      </div>

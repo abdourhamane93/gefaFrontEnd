@@ -1,0 +1,17 @@
+ h1,div {
+     text-align: center;
+     color: #ffffff;
+ }
+a:hover{
+    background-color: #293846
+}
+ ul {
+     padding: 0px;
+     margin: 0px;
+     display: block;
+ }
+ #collapse-admin{
+     list-style: none;
+     padding: 15px;
+     margin: 0px;
+ }

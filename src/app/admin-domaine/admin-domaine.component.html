@@ -1,0 +1,197 @@
+<div class="container-fluid d-table">
+  <div class="row d-table-row">
+     <div class="col-md-2 d-table-cell" id="side-menu">
+         <app-sidebar></app-sidebar>
+     </div>
+     <div class="col-md-10 d-table-cell">
+        <app-header></app-header>
+        <div class="bg-dark text-white text-center  title">
+         <h2 class="titre text-white" *ngIf="domaine">
+            {{domaine.domaine}}
+         </h2>
+        </div>
+        <button class="btn btn-success btn-sm text-white" data-toggle="modal" data-target="#forModal"><i class="fa fa-plus"></i>Ajouter Activité</button>
+        <div class="row">
+           <div class="col col-md-4" *ngIf="activites">
+              <div class="ul list-group" *ngFor="let a of activites">
+                 <a class="li list-group-item text-center" (click)="envoie(a)">
+                     {{a.nomActivite}}
+                 </a>
+              </div>
+           </div>
+           <div class="col col-md-6">
+              <div class="card" style="width: 28rem;" *ngIf="choix">
+                  <div class="card-body">
+                     <div class="card-title text-center">
+                      <h2>{{choix.nomActivite}}</h2>
+                     </div>
+                     <h4> Description:</h4>  {{choix.descriptionAct}} <br>
+                     <h4> Debut:</h4>{{choix.dateDebutAct|date:'dd'}}/{{choix.dateDebutAct|date:'mm'}}/{{choix.dateDebutAct|date:'y'}} <br>
+                     <h4> Productivite:</h4>{{choix.productivite}}
+                  </div>
+                  <div class="card-footer">
+                     <a class="btn btn-danger text-center text-white btn-sm" (click)="sup(choix.numActivite)"><i class="fa fa-trash"></i></a>
+                     <a class="btn btn-success text-center text-white btn-sm" data-toggle="modal" data-target="#forCamp"><i class="fa fa-plus"></i></a>
+                     <a (click)="getCampagne(choix.numActivite)"
+                      class="btn btn-info pull-right text-white btn-sm">Toutes Campagnes</a>
+                  </div>
+              </div>
+           </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="table table-hover col-md-12" *ngIf="afficher">
+              <div class="bg-dark text-white text-center w-100 dBrand">
+               <h3> Toutes les Campagnes "{{choix.nomActivite}}"</h3>
+              </div>
+              <table class="table-hover col-md-12">
+              <thead class="bg-secondary text-white">
+                 <tr>
+                    <th>Campagne</th>
+                    <th>Activite</th>
+                    <th>Debut</th>
+                    <th>Objectifs</th>
+                    <th>Responsable</th>
+                    <th></th>
+                   </tr>
+              </thead>
+              <tbody>
+                 <tr *ngFor="let c of campagnes">
+                    <td>{{c.nomCampagne}}</td>
+                    <td>{{c.activite.nomActivite}}</td>
+                    <td>{{c.debutCampagne|date:'dd'}}/{{c.debutCampagne|date:'MM'}}/{{c.debutCampagne|date:'y'}}</td>
+                    <td>{{c.objectif}}</td>
+                    <td>{{c.responsable}}</td>
+                    <td><button class="btn btn-info text-white btn-sm"
+                      data-toggle="modal"
+                      (click)="getVentesC(c.numCampagne)" data-target="#modalVente">Ventes</button>
+                      <button class="btn btn-info text-white btn-sm d" 
+                      data-toggle="modal" data-target="#modalDepense"
+                      (click)="getDepensesC(c.numCampagne)">Depenses</button></td>
+                </tr>
+              </tbody>
+            </table>
+        </div>
+          </div>
+        </div>                
+     </div>
+   </div> 
+</div>
+<div class="modal" tabindex="-1" role="dialog" id="forModal">
+   <div class="modal-dialog" role="document">
+     <div class="modal-content">
+       <div class="modal-header">
+         <h3 class="modal-title">Nouvelle Activite</h3>
+         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+           <span aria-hidden="true">&times;</span>
+         </button>
+       </div>
+       <div class="modal-body">
+        <form #activiteForm="ngForm" class="form">
+          <label for="nomActivite">Activite</label>
+          <input type="text" name="nomActivite" class="form-control" ngModel>
+          <label for="domaine">Domaine</label>
+          <input disabled type="number" class="form-control" placeholder="{{domaine.domaine}}" name="numDomaine" ngModel>
+          <label for="productivite">Productivite</label>
+          <input type="text" class="form-control" name="productivite" ngModel>
+          <label for="dateDebutAct">Debut</label>
+          <input type="date" class="form-control" name="dateDebutAct" ngModel>
+          <label for="descriptionAct">Description</label>
+          <input type="text" class="form-control" name="descriptionAct" ngModel>
+        </form>
+       </div>
+       <div class="modal-footer">
+         <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+         <button type="button" class="btn btn-primary" (click)="ajouterActivite(activiteForm)"  data-dismiss="modal">Valider</button>
+       </div>
+     </div>
+   </div>
+ </div>
+ <div class="modal" tabindex="-1" role="dialog" id="forCamp" *ngIf="activites">
+   <div class="modal-dialog" role="document">
+     <div class="modal-content">
+       <div class="modal-header bg-dark text-white">
+         <h3 class="modal-title">Nouvelle Campagne</h3>
+       </div>
+       <div class="modal-body">
+         <form #formCamp="ngForm" class="form">
+             <label for="campagne">Campagne</label>
+             <input #camp type="text" class="form-control" name="nomCampagne" ngModel>
+             <label for="debut">Debut Campagne</label>
+             <input #dat type="date" class="form-control" name="debutCampagne" ngModel>
+             <label for="numActivite">Activité</label>
+             <input type="number" class="form-control" placeholder="{{choix.nomActivite}}" name="numActivite" ngModel>
+             <label for="objectif">Objectifs</label>
+             <input #objt type="text" class="form-control" name="objectif" ngModel>
+             <label for="responsable">Responsable</label>
+             <input #resp type="text" class="form-control" name="responsable" ngModel>
+         </form>
+       </div>
+       <div class="modal-footer">
+         <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+         <button type="button" class="btn btn-primary" (click)="ajoutC(formCamp)" data-dismiss="modal">Ajouter</button>
+       </div>
+     </div>
+   </div>
+ </div>
+ <div class="modal" tabindex="-1" role="dialog" id="modalVente">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Ventes</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <table class="table table-hover" *ngIf="ventes">
+            <thead class="bg-dark text-white">
+                <th scope="col">Date Vente</th>
+                <th scope="col">Produit</th> 
+                <th scope="col">Prix U</th> 
+                <th scope="col">Quantite</th>                          
+                <th scope="col">Montant</th>
+            </thead>
+            <tbody *ngFor="let v of ventes">
+              <td>{{v.vente.dateVente|date}}</td>
+              <td>{{v.produit.produit}}</td> 
+              <td>{{v.prixVente}}</td>   
+              <td>{{v.quantiteProduit}}</td>                        
+              <td>{{v.vente.montant}}</td>
+            </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal" tabindex="-1" role="dialog" id="modalDepense">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Depenses</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <table class="table table-hover" *ngIf="depenses">
+            <thead class="bg-secondary text-white">
+              <tr>
+                 <th scope="col">Designation</th>
+                 <th scope="col">date</th>
+                 <th scope="col">Produit</th>
+                 <th scope="col">Montant</th>
+                </tr>
+            </thead>
+            <tbody *ngFor="let d of depenses">
+              <tr>
+                <td>{{d.designation}}</td>
+                <td>{{d.dateDepense|date}}</td>
+                <td>  {{d.produit.produit}}</td>
+                <td>{{d.montantDepense|number}}Fcfa</td>
+               </tr>
+            </tbody>
+        </table>
+      </div>
+
+

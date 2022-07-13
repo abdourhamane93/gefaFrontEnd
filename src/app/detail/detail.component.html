@@ -1,0 +1,11 @@
+<div *ngIf="domaine">
+<img src="assets/images/{{domaine.path}}" width="250px" height="300px" class="card-img-top" alt="...">
+<div class="card-body">
+  <h5 class="card-title">{{domaine.domaine}}</h5>
+  <p class="card-text">{{domaine.description}}
+
+  </p>
+  <a (click)="select(domaine)" class="btn btn-primary">Activites</a>
+  <a (click)="getFournisseurs(fournisseurs)" class="btn btn-primary">fournisseurs</a>
+</div>
+</div>

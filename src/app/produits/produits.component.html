@@ -1,0 +1,62 @@
+
+<div class="container-fluid d-table">
+    <div class="row d-table-row">
+        <div class="col-sm-2 d-table-cell" id="side-menu">
+            <app-sidebar></app-sidebar>
+        </div>
+        <div class="col-sm-10 d-table-cell">
+                <app-header></app-header>
+                
+                <div class="container">
+                        <table class="table table-hover  col-md-12" *ngIf="produits">
+                            <thead class="bg-dark text-white">
+                             <tr>
+                                    <th>Nom</th>
+                                    <th>type</th>
+                                    <th><a  class="btn btn-sm btn-primary text-white" data-toggle="modal" data-target="#formModal" >ajouter un produit</a></th>
+                            </tr>       
+                            </thead> 
+                            <tbody *ngFor="let p of produits">
+                             <tr>
+                             <td>{{p.produit}}</td> <td>{{p.typeProduit}}</td>
+                             <td>
+                                 <a class="btn btn-danger text-white" (click)="supprimer(p)" ><i class="fa fa-times"></i></a>
+                             </td>
+                             </tr>
+                            </tbody>
+                            </table>
+                            
+                        </div>
+                        
+                           
+                                <br> <br>
+                                <div class="row">
+                                    <div id="footer" class="clearfix">
+                                            <app-footer></app-footer>
+                                    </div> 
+                                </div>
+        </div>
+    </div>
+</div>
+<div class="modal" tabindex="-1" role="dialog" id="formModal">
+    <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                    <div class="modal-header bg-dark text-white">
+                      <h5 class="modal-title">Nouveau Produit</h5>
+            
+                    </div>
+                    <div class="modal-body">
+                      <form #produitForm="ngForm" class="form">
+                        <label for="produit">Nom Produit</label>
+                        <input type="text" class="form-control" name="produit" ngModel>
+                        <label for="typeProduit">Type Produit</label>
+                        <input type="text" class="form-control" name="typeProduit" ngModel>
+                      </form>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                      <button type="button" class="btn btn-primary" (click)="ajouter(produitForm.value)" data-dismiss="modal">Ajouter</button>
+                    </div>
+                  </div>
+    </div>
+</div>

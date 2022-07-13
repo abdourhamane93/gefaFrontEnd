@@ -1,0 +1,61 @@
+.d-table {
+    padding: 0px;
+    width: 100%;
+    height: 100%;
+}
+.d-table-cell {
+    height: 100%;
+    float: none;
+    height: 100%;
+}
+
+#side-menu {
+    background-color: #2f4050;
+    padding: 0px;
+    width: 18%;
+}
+#side-menu ul {
+    list-style: none;
+    margin: 0px;
+    padding: 0px;
+    display: none;
+
+}
+#footer{
+    position: absolute;
+    width: 100%;
+    bottom: 0px;
+    background-color: #ffff
+}
+img{
+    width: 100%;
+    height: 45%;
+    max-height: 125px;
+}
+.btn{
+    margin-bottom:10px;
+}
+.card{ 
+    display: inline-flex;
+    padding: 5px;
+    margin: 5px;
+    height: 250px;
+}
+hr{
+    padding: 1px;
+    margin: 1px;
+}
+
+.li{
+    font-size: 15px;
+}
+.title{
+   width: auto;
+}
+.btn-sm{
+    margin: 0.2rem;
+}
+h4{
+    display: inline;
+}
+

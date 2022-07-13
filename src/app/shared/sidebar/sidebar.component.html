@@ -1,0 +1,56 @@
+
+<h1 class="d-none d-sm-block">Gefa</h1>
+                <ul class="d-none d-sm-block nav flex-column">
+                        <li class="nav-item" >
+                            <a routerLink="/domaine" class="nav-link text-white"> 
+                                <i class="fa fa-home" aria-hidden="true"></i>
+                                <span class="d-none d-sm-none d-md-inline"> Acceuil</span>
+                            </a>
+                            </li>
+                            <li class="nav-item" >
+                                <a routerLink="/commande" class="nav-link text-white">
+                                 <i class="fa fa-shopping-cart"></i>
+                                 <span class="d-none d-sm-none d-md-inline">Appros</span>
+                                </a> 
+                           </li>
+                           <li class="nav-item" >
+                            <a routerLink="/ventes" class="nav-link text-white">
+                                <i class="fa fa-exchange"></i>
+                               <span class="d-none d-sm-none d-md-inline"> Ventes</span>
+                            </a>
+                           </li>
+                           <li class="nav-item" >
+                            <a routerLink="/stocks" class="nav-link text-white">
+                                <i class="fa fa-product-hunt"></i>
+                                 <span> Stock</span> </a>
+                           </li>
+                           <li class="nav-item">
+                               <a class="nav-link text-white" href="#collapse-admin" data-toggle="collapse" aria-controls="collapse-admin">
+                                   <i class="fa fa-th"></i><span class="d-none d-sm-none d-md-inline"> Admin</span>
+                               </a>
+                           </li>
+                           <ul class="nav collapse collapseable" id="collapse-admin">
+                                <li class="nav-item" >
+                                    <a routerLink="/users" class="nav-link text-white" *ngIf="isAdmin()">
+                                    <i class="fa fa-users"></i><span class="d-none d-sm-none d-md-inline"> Gestion de utilisateurs</span> 
+                                    </a>
+                                </li>
+                                <li class="nav-item" >
+                                    <a routerLink="/depenses" class="nav-link text-white" routerLink="/depenses">
+                                      <i class="fa fa-usd"></i> <span class="d-none d-sm-none d-md-inline">Depenses</span> 
+                                    </a>
+                                </li>
+                                <li class="nav-item" >
+                                    <a class="nav-link text-white" routerLink="/employes" *ngIf="isAdmin()">
+                                      <i class="fa fa-user"></i><span class="d-none d-sm-none d-md-inline"> Employés</span> 
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-white" routerLink="/fournisseur">
+                                     <i class="fa fa-address-book"></i>   Fournisseurs
+                                    </a>
+                                </li>
+                           </ul>
+
+                    </ul>
+

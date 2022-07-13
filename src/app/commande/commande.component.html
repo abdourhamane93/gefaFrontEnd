@@ -1,0 +1,150 @@
+
+<div class="container-fluid d-table">
+    <div class="row d-table-row">
+        <div class="col-md-2 d-table-cell" id="side-menu">
+            <app-sidebar></app-sidebar>
+        </div>
+        <div class="col-md-10 d-table-cell">
+                <app-header></app-header>
+                <div class="col-md-12">
+                  <div class="bg-secondary col-sm-12 text-white text-center w-100 dBrand">
+                    <h2 class="text-center"> Approvisionnements</h2>
+                  </div>
+                  <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#forModal">
+                    <i class="fa fa-plus"></i>
+                  </button>
+                </div>
+                <div class="container-fluid"> 
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12">
+                                <table class="table table-hover col-md-12">
+                                        <thead class="bg-dark text-white">
+                                           <tr>
+                                               <th scope="col">Designation</th>
+                                               <th scope="col">Produit</th>
+                                               <th scope="col">Date</th>
+                                               <th scope="col">Prix Unitaire</th>
+                                               <th scope="col">Quantité</th>
+                                               <th scope="col">Montant</th>
+                                               <th scope="col"></th>
+                                           </tr>
+                                        </thead>
+                                        <tbody *ngFor="let c of commandes">
+                                            <tr>
+                                                <td>{{c.approvisionnement.designation}}</td>
+                                                <td>{{c.produit.produit}}</td>
+                                                <td>{{c.approvisionnement.dateCommande|date:'dd'}}/{{c.approvisionnement.dateCommande|date:'MM'}}/{{c.approvisionnement.dateCommande|date:'yyyy'}}</td>
+                                                <td>{{c.prixUnitaire |number}} Fcfa</td>
+                                                <td>{{c.quantite |number}} </td>
+                                                <td>{{c.approvisionnement.montant |number}} Fcfa </td> 
+                                                <td class="align-item-center"> 
+                                                     <a class="btn btn-primary" (click)="modi(c)" data-toggle="modal" aria-details="Modifier"  data-target="#modif"><i class="fa fa-edit"></i></a>
+                                                     <a class="btn btn-danger" (click)="supprimer(c)" style="margin-right: 0rem;" ><i class="fa fa-times"></i></a>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    
+                        </div>
+                    </div>
+                    <div class="modal" tabindex="-1" role="dialog" id="forModal">
+                            <div class="modal-dialog" role="document">
+                              <div class="modal-content">
+                                <div class="modal-header bg-dark text-white">
+                                  <h3 class="modal-title">Nouvelle Commande</h3>
+                                </div>
+                                <div class="modal-body">
+                                        <form #comForm="ngForm" class="form">
+                                                <label for="fournisseur">fournisseur</label>
+                                                 <select *ngIf="fournisseurs" name="fournisseur" class="form-control" ngModel>
+                                                         <option *ngFor="let f of fournisseurs" [value]="f.fournisseur.numFournisseur">
+                                                             {{f.fournisseur.nomFournisseur}}
+                                                         </option>
+                                                     </select>
+                                                <label for="dateCommande">Date</label>
+                                                <input #date type="date" name ="dateCommande" class="form-control mb-2 mr-sm-2" ngModel>
+                                                <label for="designation">Designation</label>
+                                                <input #designation type="text" name ="designation" class="form-control" ngModel>
+                                                <label for="campagne">Campagne</label>
+                                                <select *ngIf="campagnes" name="campagne" class="form-control" ngModel>
+                                                  <option *ngFor="let c of campagnes" [value]="c.numCampagne">
+                                                      {{c.nomCampagne}}
+                                                  </option>
+                                              </select>
+                                                <label for="produit">Produit</label>
+                                                <select *ngIf="produits"  name="produit" class="form-control" ngModel>
+                                                 <option #selected *ngFor="let p of produits" [value]="p.produit">
+                                                     {{p.produit}}
+                                                 </option>
+                                             </select>
+                                                 <label for="quantite">Quantite</label>
+                                                 <input #qte type="number" class="form-control" name="quantite" ngModel>
+                                                <label for="prix">Prix</label>
+                                                <input #prix type="number" name ="prix" class="form-control" ngModel>
+                                                
+                                        </form>
+                                </div>
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                                  <button type="button" class="btn btn-primary"  (click)="envoyer(comForm.value)" data-dismiss="modal">Valider</button>
+                                </div>
+                              </div>
+                            </div>
+                            
+                          </div>
+                          <div class="modal" tabindex="-1" role="dialog" id="modif">
+                            <div class="modal-dialog" role="document">
+                              <div class="modal-content">
+                                <div class="modal-header bg-dark text-white">
+                                  <h3 class="modal-title">Modifier</h3>
+                                </div>
+                                <div class="modal-body" *ngIf="modifAppro" >
+                                        <form #modif="ngForm" class="form">
+                                                <label for="fournisseur">fournisseur</label>
+                                                 <select *ngIf="fournisseurs" name="fournisseur" class="form-control" ngModel>
+                                                         <option *ngFor="let f of fournisseurs" [value]="f.fournisseur.numFournisseur">
+                                                             {{f.fournisseur.nomFournisseur}}
+                                                         </option>
+                                                     </select>
+                                                <label for="dateCommande">Date</label>
+                                                <input #date type="date" name ="dateCommande" class="form-control mb-2 mr-sm-2"  ngModel>
+                                                <label for="designation">Designation</label>
+                                                <input  type="text" name ="designation" placeholder="{{modifAppro.approvisionnement.designation}}" class="form-control" ngModel>
+                                                <label for="campagne">Campagne</label>
+                                                <input  type="number" name ="campagne" placeholder="{{modifAppro.approvisionnement.campagne.nomCampagne}}" class="form-control" ngModel> 
+                                                <input hidden class="form-control" name="numCommande" placeholder="{{modifAppro.approvisionnement.numCommande}}"
+                                                 [value]="modifAppro.approvisionnement.numCommande" ngModel>
+                                                <label for="produit">Produit</label>
+                                                <select *ngIf="produits"  name="produit" class="form-control" ngModel>
+                                                 <option #selected *ngFor="let p of produits" [value]="p.produit">
+                                                     {{p.produit}}
+                                                 </option>
+                                             </select>
+                                                 <label for="quantite">Quantite</label>
+                                                 <input #qte type="number" class="form-control" name="quantite" placeholder="{{modifAppro.quantite}}" ngModel>
+                                                <label for="prix">Prix</label>
+                                                <input #prix type="number" name ="prix" class="form-control" placeholder="{{modifAppro.prixUnitaire}}" ngModel>
+                                                <button type="button" class="btn btn-primary"  (click)="modifier(modif.value)" data-dismiss="modal">Valider</button>
+                                        </form>
+                                </div>
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                                  
+                                </div>
+                              </div>
+                            </div>
+                            
+                          </div>
+                        </div>
+                         <div class="row">
+                            <div id="footer" class="clearfix">
+                                    <app-footer></app-footer>
+                            </div> 
+                        </div>    
+        </div>
+    </div>
+</div>
+
+    
+    
+     

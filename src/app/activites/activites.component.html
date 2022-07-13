@@ -1,0 +1,62 @@
+
+    <div class="table table-hover" *ngIf="activites">
+            <thead class="bg-dark text-white">
+                <tr>
+                 <th>Activité</th>
+                 <th>Domaine</th>
+                 <th>Debut Activité</th>
+                 <th>Fin Activité</th>
+                 <th>Productivite</th>
+                 <th>Description Activité</th>
+                 
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let a of activites">
+                    <td>{{a.nomActivite}}</td>
+                    <td>{{a.domaine.domaine}}</td> 
+                    <td>{{a.dateDebutAct|date:'dd'}}/{{a.dateDebutAct|date:'MM'}}/{{a.dateDebutAct|date:'y'}}</td>
+                    <td>{{a.dateFinAct|date:'dd'}}/{{a.dateFinAct|date:'MM'}}/{{a.dateFinAct|date:'yyyy'}}</td>
+                    <td>{{a.productivite}}</td>
+                    <td>{{a.descriptionAct}}</td>
+                    
+                </tr>
+            </tbody>
+    </div>
+   
+        <div class="modal" tabindex="-1" role="dialog" id="forModal">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h3 class="modal-title">Nouvelle Activite</h3>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                 <form #activiteForm="ngForm" class="form">
+                   <label for="nomActivite">Activite</label>
+                   <input type="text" name="nomActivite" class="form-control" ngModel>
+                   <label for="domaine">Domaine</label>
+                   <select *ngIf="domaines" name="numDomaine" class="form-control" ngModel>
+                     <option *ngFor="let d of domaines" [value]="d.numDomaine">
+                       {{d.domaine}}
+                     </option>
+                   </select>
+                   <label for="productivite">Productivite</label>
+                   <input type="text" class="form-control" name="productivite" ngModel>
+                   <label for="dateDebutAct">Debut</label>
+                   <input type="date" class="form-control" name="dateDebutAct" ngModel>
+                   <label for="descriptionAct">Description</label>
+                   <input type="text" class="form-control" name="descriptionAct" ngModel>
+                 </form>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                  <button type="button" class="btn btn-primary" (click)="ajouter(activiteForm.value)" data-dismiss="modal">Valider</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+    

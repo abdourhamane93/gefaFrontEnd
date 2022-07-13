@@ -1,0 +1,98 @@
+
+<div class="container-fluid d-table">
+    <div class="row d-table-row">
+        <div class="col-sm-2 d-table-cell" id="side-menu">
+            <app-sidebar></app-sidebar>
+        </div>
+        <div class="col-sm-10 d-table-cell">
+                <app-header></app-header>
+                <div class="container" width="150px">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="bg-secondary col-sm-12 text-white text-center w-100 dBrand">
+                                  <h2 class="text-center">Fournisseurs</h2>
+                                </div>
+                                <a  class="btn btn-primary text-white btn-sm" data-toggle="modal"
+                                 data-target="#forFr" height="15px"><i class="fa fa-plus"></i></a>
+                              </div>
+                    <table class="table col-sm-6 col-md-12" *ngIf="fournisseurs">
+                        <thead class="bg-dark text-white">
+                           <tr>
+                               <th scope="col">Nom</th>
+                               <th scope="col">Contact</th>
+                               <th scope="col">Adresse</th>
+                               <th scope="col">Produit</th>
+                               <th scope="col"></th>
+                           </tr>
+                        </thead>
+                        <tbody *ngFor="let f of fournisseurs">
+                            <tr>
+                                <td>{{f.fournisseur.nomFournisseur}}</td>
+                                <td>{{f.fournisseur.contactFournisseur}}</td>
+                                <td>{{f.fournisseur.adresseFournisseur}}</td>
+                                <td>{{f.produit.produit}}</td>
+                                <td>
+                                    <a class="btn btn-success text-white btn-sm" (click)="deleteFournisseur(f.numFournisseur)"><i class="fa fa-edit"></i></a>
+                                     <a class="btn btn-danger text-white btn-sm" (click)="deleteFournisseur(f.numFournisseur)"><i class="fa fa-times"></i></a> 
+                                    </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    </div>
+                    </div>
+                    <div class="container">
+                        <br>
+                            <div class="card" style="width: 18rem;" *ngIf="clicke">
+                                    <div class="card-body">
+                                      
+                                    </div>
+                            </div>
+                            
+                        </div>
+                        <div class="container" *ngIf="clikee">
+                        <div class="container" *ngIf="produits">
+                            <ul class="list-group" *ngFor="let p of produits._embedded.produits">
+                                <li class="list-group-item">
+                                        {{p.produit}}
+                                </li>
+                            </ul>
+                            <a (click)="fermer()" class="btn btn-dark text-white">fermer</a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div id="footer" class="clearfix">
+                                <app-footer></app-footer>
+                        </div> 
+                    </div> 
+        </div>
+    </div>
+</div>
+<div class="modal" tabindex="-1" role="dialog" id="forFr">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header bg-dark text-white">
+              <h3 class="modal-title">Nouveau Fournisseur</h3>
+            </div>
+            <div class="modal-body">
+                    <form #fournisseur = "ngForm" class="form">
+                            <label for="nomFournisseur">Nom</label>
+                            <input name="nomFournisseur" class="form-control" type="text" ngModel>
+                            <label for="contactFournisseur">contact</label>
+                            <input name="contactFournisseur" minlength="8" class="form-control" type="number" ngModel>
+                            <label for="adresseFournisseur">adresse</label>
+                            <input name="adresseFournisseur" class="form-control" type="text" ngModel>
+                            <label for="produit">Produit</label>
+                            <select name="produit" class="form-control" ngModel>
+                                <option *ngFor="let p of produits" [value]="p.numProduit">
+                                    {{p.produit}}
+                                </option>
+                            </select>
+                        </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+              <button type="button" class="btn btn-primary" (click)="poster(fournisseur.value)" data-dismiss="modal">Ajouter</button>
+            </div>
+          </div>
+        </div>
+      </div>

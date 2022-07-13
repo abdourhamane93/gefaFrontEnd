@@ -1,0 +1,38 @@
+.d-table {
+    padding: 0px;
+    width: 100%;
+    height: 100%;
+}
+.d-table-cell {
+    height: 100%;
+    float: none;
+    height: 100%;
+}
+
+#side-menu {
+    background-color: #2f4050;
+    padding: 0px;
+    width: 18%;
+}
+#side-menu ul {
+    list-style: none;
+    margin: 0px;
+    padding: 0px;
+}
+#footer{
+    position: absolute;
+    width: 100%;
+    bottom: 0px;
+    background-color: #ffff
+}
+a[class*="btn"]{
+    color: #ffff;
+    display: inline;
+    margin: 5px;
+}
+a[class*="btn-danger"]{
+    font-size: 15px;
+    float: none;
+    width: 50px;
+    height: 25px;
+}
