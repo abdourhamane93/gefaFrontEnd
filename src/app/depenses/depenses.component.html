@@ -6,14 +6,16 @@
         </div>
         <div class="col-sm-10 d-table-cell">
                 <app-header></app-header>
-                <div class="col-md-12">
-                  <div class="bg-secondary text-white text-center w-100 h-100 dBrand">
+                <div class="row">
+                  <div class="col-md-8 text-dark text-center w-100 h-100 dBrand">
                     <h2 class="text-center">Dépenses</h2>
                   </div>
-                  <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#forDep">
+                  <div class="col-md-4">
+                  <button class="btn btn-success btn-sm pull-right" data-toggle="modal" data-target="#forDep">
                     <i class="fa fa-plus"></i>
                     Nouvelle Depense
                   </button>
+                </div>
                 </div>
                 <div class="col-md-12">
                         <table class="table table-hover col-md-12"  *ngIf="depenses">
